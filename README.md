@@ -56,14 +56,6 @@ const db = mysql.createConnection({
 });
 ```
 
-Certifique-se de que o banco de dados existe no MySQL antes de iniciar.
-
-#### ▶️ Iniciar o backend
-
-```bash
-node index.js
-```
-
 > O backend estará disponível em: `http://localhost:8800`
 
 ---
