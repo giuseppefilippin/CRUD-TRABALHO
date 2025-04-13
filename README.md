@@ -13,9 +13,9 @@ Abaixo você encontrará as instruções para rodar o projeto localmente.
 
 Antes de começar, você precisa ter instalado:
 
-- [Node.js](https://nodejs.org) (versão 16 ou superior)
+- [Node.js](https://nodejs.org)
 - [npm](https://www.npmjs.com/)
-- MySQL
+- [MySQL](https://www.mysql.com/)
 
 ---
 
