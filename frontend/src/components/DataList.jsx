@@ -1,20 +1,17 @@
+// components/DataList.jsx
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const DataList = () => {
   const [data, setData] = useState([]);
-  const [expandedItemId, setExpandedItemId] = useState(null);
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({ nome: "", idade: "", cpf: "" });
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:8800/users")
       .then((response) => response.json())
-      .then((data) => setData(data));
+      .then((data) => setData(data))
+      .catch(() => alert("Erro ao carregar dados."));
   }, []);
-
-  const toggleDetails = (id) => {
-    setExpandedItemId(expandedItemId === id ? null : id);
-  };
 
   const handleDelete = async (id) => {
     if (window.confirm("Tem certeza que deseja deletar este usuário?")) {
@@ -51,67 +48,14 @@ const DataList = () => {
     }
   };
 
-  const handleAddUser = async (e) => {
-    e.preventDefault();
-
-    const res = await fetch("http://localhost:8800/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    const result = await res.json();
-
-    if (res.ok) {
-      const newUser = { id: result.id, ...formData };
-      setData([newUser, ...data]);
-      setFormData({ nome: "", idade: "", cpf: "" });
-      setShowForm(false);
-    } else {
-      alert("Erro ao adicionar usuário.");
-    }
-  };
-
   return (
-    <div>
+    <div className="container">
       <div className="title-row">
-        
-        <h1 className="title">Listando Usuários:</h1>
-        <button className="btn-add" onClick={() => setShowForm(!showForm)}>
-          {showForm ? "Cancelar" : "➕ Adicionar Usuário"}
+        <h1>Listando Usuários</h1>
+        <button className="btn-add" onClick={() => navigate("/crud")}>
+          ➕ Adicionar Usuário
         </button>
       </div>
-
-      {showForm && (
-        <form onSubmit={handleAddUser} className="add-form">
-          <input
-            type="text"
-            placeholder="Nome"
-            value={formData.nome}
-            onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-            required
-          />
-          <input
-            type="number"
-            placeholder="Idade"
-            value={formData.idade}
-            onChange={(e) =>
-              setFormData({ ...formData, idade: e.target.value })
-            }
-            required
-          />
-          <input
-            type="text"
-            placeholder="CPF"
-            value={formData.cpf}
-            onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
-            required
-          />
-          <button type="submit" className="btn-list">
-            Salvar
-          </button>
-        </form>
-      )}
 
       <ul className="list">
         {data.map((item) => (
@@ -126,11 +70,9 @@ const DataList = () => {
               <div className="btn-group">
                 <button
                   className="btn-list"
-                  onClick={() => toggleDetails(item.id)}
+                  onClick={() => navigate(`/detalhes/${item.id}`)}
                 >
-                  {expandedItemId === item.id
-                    ? "Ocultar detalhes"
-                    : "Mais detalhes"}
+                  Mais detalhes
                 </button>
                 <button
                   className="btn-list"
@@ -138,23 +80,13 @@ const DataList = () => {
                 >
                   Deletar
                 </button>
-                <button className="btn-list" onClick={() => handleEdit(item)}>
+                <button
+                  className="btn-list"
+                  onClick={() => handleEdit(item)}
+                >
                   Editar
                 </button>
               </div>
-            </div>
-
-            <div
-              className={`details-container ${
-                expandedItemId === item.id ? "active" : ""
-              }`}
-            >
-              <p>
-                <strong>Idade:</strong> {item.idade}
-              </p>
-              <p>
-                <strong>CPF:</strong> {item.cpf}
-              </p>
             </div>
           </li>
         ))}
