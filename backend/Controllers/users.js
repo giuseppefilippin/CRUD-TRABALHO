@@ -40,3 +40,20 @@ export const addUser = (req, res) => {
     });
   };
   
+  export const getUserById = (req, res) => {
+    const { id } = req.params;
+    const q = "SELECT * FROM usuarios WHERE id = ?";
+  
+    db.query(q, [id], (err, data) => {
+      if (err) {
+        return res.status(500).json({ error: "Erro ao buscar usuário", details: err });
+      }
+  
+      if (data.length === 0) {
+        return res.status(404).json({ message: "Usuário não encontrado" });
+      }
+  
+      return res.status(200).json(data[0]); // Retorna o único usuário
+    });
+  };
+  
