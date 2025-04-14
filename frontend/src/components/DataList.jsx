@@ -49,7 +49,7 @@ const DataList = () => {
 
   return (
     <div className="container">
-        <h1 className="Meu-nome">Giuseppe filippin</h1>
+        <h1 className="Meu-nome">Giuseppe Filippin</h1>
       <div className="title-row">
         <h1>Listando Usuários</h1>
         <button className="btn-add" onClick={() => navigate("/crud")}>
