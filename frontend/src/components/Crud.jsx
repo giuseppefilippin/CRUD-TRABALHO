@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Crud = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ nome: "", idade: "", cpf: "" });
+  const [formData, setFormData] = useState({ nome: "", idade: "", cpf: "", email: "", anoNasc: "" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -46,6 +46,20 @@ const Crud = () => {
           placeholder="CPF"
           value={formData.cpf}
           onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Ano Nasc"
+          value={formData.anoNasc}
+          onChange={(e) => setFormData({ ...formData, anoNasc: e.target.value })}
           required
         />
         <button type="submit">Salvar</button>

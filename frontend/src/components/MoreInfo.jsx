@@ -55,6 +55,12 @@ const MoreInfo = () => {
       <p>
         <strong>CPF:</strong> {user.cpf}
       </p>
+      <p>
+        <strong>Email:</strong> {user.email}
+      </p>
+      <p>
+        <strong>Ano Nascimento:</strong> {user.anoNasc}
+      </p>
       <button onClick={() => navigate("/")}>Voltar</button>
     </div>
   );

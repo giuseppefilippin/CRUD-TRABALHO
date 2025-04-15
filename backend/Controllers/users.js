@@ -20,21 +20,21 @@ export const deleteUser = (req, res) => {
 
 export const updateUser = (req, res) => {
     const { id } = req.params;
-    const { nome, idade, cpf } = req.body;
+    const { nome, idade, cpf, email, anoNasc } = req.body;
 
-    const q = "UPDATE usuarios SET nome = ?, idade = ?, cpf = ? WHERE id = ?";
+    const q = "UPDATE usuarios SET nome = ?, idade = ?, cpf = ?, email = ?, anoNasc = ? WHERE id = ?";
     
-    db.query(q, [nome, idade, cpf, id], (err, result) => {
+    db.query(q, [nome, idade, cpf, email, anoNasc, id], (err, result) => {
         if (err) return res.status(500).json(err);
         return res.status(200).json({ message: "Usuário atualizado com sucesso!" });
     });
 };
 
 export const addUser = (req, res) => {
-    const { nome, idade, cpf } = req.body;
-    const q = "INSERT INTO usuarios (nome, idade, cpf) VALUES (?, ?, ?)";
+    const { nome, idade, cpf, email, anoNasc } = req.body;
+    const q = "INSERT INTO usuarios (nome, idade, cpf, email, anoNasc) VALUES (?, ?, ?, ?, ?)";
   
-    db.query(q, [nome, idade, cpf], (err, result) => {
+    db.query(q, [nome, idade, cpf, email, anoNasc], (err, result) => {
       if (err) return res.status(500).json({ error: err });
       return res.status(201).json({ message: "Usuário criado com sucesso!", id: result.insertId });
     });

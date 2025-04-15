@@ -25,8 +25,10 @@ const DataList = () => {
     const novoNome = prompt("Digite o novo nome:", item.nome);
     const novaIdade = prompt("Digite a nova idade:", item.idade);
     const novoCPF = prompt("Digite o novo CPF:", item.cpf);
+    const novoEmail = prompt("Digite o novo Email:", item.email);
+    const novoNasc = prompt("Digite o novo ano de Nasc:", item.anoNasc);
 
-    if (novoNome && novaIdade && novoCPF) {
+    if (novoNome && novaIdade && novoCPF && novoEmail && novoNasc) {
       await fetch(`http://localhost:8800/users/${item.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -34,13 +36,15 @@ const DataList = () => {
           nome: novoNome,
           idade: novaIdade,
           cpf: novoCPF,
+          email: novoEmail,
+          anoNasc: novoNasc
         }),
       });
 
       setData(
         data.map((d) =>
           d.id === item.id
-            ? { ...d, nome: novoNome, idade: novaIdade, cpf: novoCPF }
+            ? { ...d, nome: novoNome, idade: novaIdade, cpf: novoCPF, email: novoEmail, anoNasc: novoNasc }
             : d
         )
       );
