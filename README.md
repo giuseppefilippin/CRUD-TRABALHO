@@ -1,5 +1,5 @@
 # CRUD-TRABALHO
-
+# Repositório github: https://github.com/giuseppefilippin/CRUD-TRABALHO
 Este projeto é uma aplicação Full Stack composta por:
 
 - **Backend:** Node.js com MySQL
